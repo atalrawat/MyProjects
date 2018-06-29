@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <!-- Latest compiled and minified CSS 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<!-- jQuery library 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!-- Latest compiled JavaScript 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<style>
+table  tr {
+	width: 310px;
+}
+
+table  tr th{
+	width: 150px;
+}
+td{
+	padding-left:5px;
+}
+
+table tr:nth-child(1)  {
+	background-color:grey;
+}
+
+table tr:nth-child(2n+3)  {
+	background-color:lightgrey;
+}
+
+div table {
+	margin-left:20px;
+	margin-top:20px;
+}
+</style>
+
+</head>
+<body style="background-color:black">
+	<div style="background-color:white;height:300px;width:450px;" class="container" >
+	
+		<button id="myBtn">Try it</button>
+		
+		<div id="myDIV">
+			<table style="box-shadow: 1px 2px grey">
+				<tr>
+					<th>Name</th><th>Species</th>
+				</tr>
+				<tr>
+					<td><output id="name1"></output></td><td><output id="species1"></output></td>
+				</tr>
+				<tr>
+					<td><output id="name2"></output></td><td><output id="species2"></output></td>
+				</tr>
+				<tr>
+					<td><output id="name3"></output></td><td><output id="species3"></output></td>
+				</tr>
+			</table>
+		</div>	
+	</div>
+
+<script>
+
+var btn = document.getElementById("myBtn");
+document.getElementById("myDIV").style.display = 'none'; 
+btn.addEventListener("mouseover",function(){
+	document.getElementById("myDIV").style.display = 'block'; 
+	var myRequest = new XMLHttpRequest();
+	myRequest.open('GET','https://learnwebcode.github.io/json-example/animals-1.json');
+	myRequest.send();
+	myRequest.onload = function(){
+		var myData = JSON.parse(myRequest.responseText);
+		console.log(myData);
+		document.getElementById("name1").value=myData[0].name;
+		document.getElementById("species1").value=myData[0].species;
+		document.getElementById("name2").value=myData[1].name;
+		document.getElementById("species2").value=myData[1].species;
+		document.getElementById("name3").value=myData[2].name;
+		document.getElementById("species3").value=myData[2].species;
+	};
+	
+});
+
+btn.addEventListener("mouseout",function(){
+		document.getElementById("myDIV").style.display = 'none'; 
+		document.getElementById("name1").value="";
+		document.getElementById("species1").value="";
+		document.getElementById("name2").value="";
+		document.getElementById("species2").value="";
+		document.getElementById("name3").value="";
+		document.getElementById("species3").value="";
+});
+
+</script>
+	
+</body>
+</html>
